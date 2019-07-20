@@ -22,8 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'food'], function() {
 
     Route::post('/insert', 'FoodController@addFood')->name('add.food');
-    Route::put('/update', 'FoodController@editFood');
-    Route::get('/list', 'FoodController@getFood');
-    Route::delete('/delete', 'FoodController@deleteFood');
+    Route::put('/update', 'FoodController@editFood')->name('edit.food');
+    Route::get('/list', 'FoodController@getFood')->name('get.food');
+    Route::delete('/delete', 'FoodController@deleteFood')->name('delete.food');
 
 });

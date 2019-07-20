@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FoodRequest;
+use App\Http\Requests\Food\AddFoodRequest;
+use App\Http\Requests\Food\EditFoodRequest;
 use App\Http\Services\FoodService;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class FoodController extends Controller
         $this->foodService = $foodService;
     }
 
-    public function addFood (FoodRequest $request) {
+    public function addFood (AddFoodRequest $request) {
 
         $name = $request['name'];
         $photo = $request['photo'];
@@ -34,7 +35,7 @@ class FoodController extends Controller
         ], 201);
     }
 
-    public function editFood(Request $request) {
+    public function editFood(EditFoodRequest $request) {
 
         $old_name = $request['old_name'];
         $new_name = $request['new_name'];
@@ -45,7 +46,7 @@ class FoodController extends Controller
             return response()->json ([
                 'response_code' => 404,
                 'response_msg'  => 'Records not found'
-            ], 500);
+            ], 404);
         }
 
         return response()->json ([
