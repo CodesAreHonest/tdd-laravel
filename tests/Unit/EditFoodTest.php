@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Http\Controllers\FoodController;
-use App\Http\Requests\Food\AddFoodRequest;
 use App\Http\Requests\Food\EditFoodRequest;
 use App\Http\Services\FoodService;
 use Illuminate\Support\Facades\Event;

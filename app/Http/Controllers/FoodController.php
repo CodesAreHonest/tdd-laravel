@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Food\AddFoodRequest;
+use App\Http\Requests\Food\DeleteFoodRequest;
 use App\Http\Requests\Food\EditFoodRequest;
 use App\Http\Services\FoodService;
 use Illuminate\Http\Request;
@@ -78,7 +79,7 @@ class FoodController extends Controller
 
     }
 
-    public function deleteFood (Request $request) {
+    public function deleteFood (DeleteFoodRequest $request) {
 
         $id = $request['id'];
 
@@ -88,7 +89,7 @@ class FoodController extends Controller
             return response()->json ([
                 'response_code' => 404,
                 'response_msg'  => 'Records not found'
-            ], 500);
+            ], 404);
         }
 
         return response()->json ([
