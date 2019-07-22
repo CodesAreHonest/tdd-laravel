@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Http\Requests\Food\AddFoodRequest;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class GetFoodTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function setUp(): void
     {

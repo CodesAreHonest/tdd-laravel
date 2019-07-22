@@ -3,13 +3,14 @@
 namespace Tests\Feature;
 
 use App\Http\Requests\Food\AddFoodRequest;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class EditFoodTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function setUp() : void {
         parent::setUp();

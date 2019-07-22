@@ -3,13 +3,15 @@
 namespace Tests\Feature;
 
 use App\Http\Requests\Food\AddFoodRequest;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DeleteFoodTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function setUp(): void
     {
@@ -44,7 +46,7 @@ class DeleteFoodTest extends TestCase
         Event::fake();
 
         $data = [
-            'id'    => 2
+            'id'    => 1
         ];
 
         $response = $this->delete(route('delete.food'), $data);
@@ -95,7 +97,7 @@ class DeleteFoodTest extends TestCase
     }
 
     /** @test */
-    public function return_internal_server_error() {
+    public function return_food_not_found () {
 
         Event::fake();
 

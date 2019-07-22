@@ -27,7 +27,7 @@ class FoodService
     public function addNameAndPhoto ($name, $photo) {
 
         try {
-            $outcome = $this->food->addFood($name, $photo);
+             $outcome = $this->food->addFood($name, $photo);
         }
         catch (Exception $e) {
             return $e->getMessage();
