@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Food;
 
+use App\Http\Repositories\Food\Interfaces\FoodRepositoryInterface;
 use App\Http\Services\FoodService;
 use App\Model\Food;
 use Tests\TestCase;
@@ -10,7 +11,7 @@ use Mockery;
 class FoodServiceTest extends TestCase
 {
     private $foodService;
-    private $foodModel;
+    private $foodRepo;
 
     public function setUp(): void
     {
@@ -28,15 +29,15 @@ class FoodServiceTest extends TestCase
         $name = 'string';
         $photo = 'string';
 
-        $this->foodModel = Mockery::mock(Food::class);
-        $this->app->instance(Food::class, $this->foodModel);
+        $this->foodRepo = Mockery::mock(FoodRepositoryInterface::class);
+        $this->app->instance(FoodRepositoryInterface::class, $this->foodRepo);
 
-        $this->foodModel->shouldReceive('addFood')
+        $this->foodRepo->shouldReceive('addFood')
             ->with($name, $photo)
             ->once()
             ->andReturnTrue();
 
-        $this->foodService = new FoodService($this->foodModel);
+        $this->foodService = new FoodService($this->foodRepo);
         $response = $this->foodService->addNameAndPhoto($name, $photo);
 
         $this->assertTrue(is_bool($response));
@@ -52,15 +53,15 @@ class FoodServiceTest extends TestCase
         $old_name = 'old_name';
         $new_name = 'new_name';
 
-        $this->foodModel = Mockery::mock(Food::class);
-        $this->app->instance(Food::class, $this->foodModel);
+        $this->foodRepo = Mockery::mock(FoodRepositoryInterface::class);
+        $this->app->instance(FoodRepositoryInterface::class, $this->foodRepo);
 
-        $this->foodModel->shouldReceive('editFoodName')
+        $this->foodRepo->shouldReceive('editFoodName')
             ->with($old_name, $new_name)
             ->once()
             ->andReturnTrue();
 
-        $this->foodService = new FoodService($this->foodModel);
+        $this->foodService = new FoodService($this->foodRepo);
         $response = $this->foodService->editFoodName($old_name, $new_name);
 
         $this->assertTrue(is_bool($response));
@@ -75,18 +76,18 @@ class FoodServiceTest extends TestCase
 
         $params = [];
 
-        $this->foodModel = Mockery::mock(Food::class);
-        $this->app->instance(Food::class, $this->foodModel);
+        $this->foodRepo = Mockery::mock(FoodRepositoryInterface::class);
+        $this->app->instance(FoodRepositoryInterface::class, $this->foodRepo);
 
         $food = new Food();
-        $data = $food->get();
+        $data = $food-> get();
 
-        $this->foodModel->shouldReceive('getFood')
+        $this->foodRepo->shouldReceive('getFoodWithNameOrPhoto')
             ->with($params)
             ->once()
             ->andReturn($data);
 
-        $this->foodService = new FoodService($this->foodModel);
+        $this->foodService = new FoodService($this->foodRepo);
         $response = $this->foodService->getFood($params);
 
         $this->assertTrue(is_object($response));
@@ -100,15 +101,15 @@ class FoodServiceTest extends TestCase
 
         $id = 1;
 
-        $this->foodModel = Mockery::mock(Food::class);
-        $this->app->instance(Food::class, $this->foodModel);
+        $this->foodRepo = Mockery::mock(FoodRepositoryInterface::class);
+        $this->app->instance(FoodRepositoryInterface::class, $this->foodRepo);
 
-        $this->foodModel->shouldReceive('deleteFood')
+        $this->foodRepo->shouldReceive('deleteFood')
             ->with($id)
             ->once()
             ->andReturnTrue();
 
-        $this->foodService = new FoodService($this->foodModel);
+        $this->foodService = new FoodService($this->foodRepo);
         $response = $this->foodService->deleteFood($id);
 
         $this->assertTrue(is_bool($response));

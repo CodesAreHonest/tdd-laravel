@@ -3,20 +3,21 @@
 
 namespace App\Http\Services;
 
+use App\Http\Repositories\Food\Interfaces\FoodRepositoryInterface;
 use App\Model\Food;
 use Exception;
 
 
 class FoodService
 {
-    private $food;
+    private $foodRepository;
 
     /**
      * FoodService constructor.
-     * @param Food $food
+     * @param FoodRepositoryInterface $foodRepository
      */
-    public function __construct(Food $food) {
-        $this->food = $food;
+    public function __construct(FoodRepositoryInterface $foodRepository) {
+        $this->foodRepository = $foodRepository;
     }
 
     /**
@@ -29,7 +30,7 @@ class FoodService
     public function addNameAndPhoto ($name, $photo) {
 
         try {
-             $outcome = $this->food->addFood($name, $photo);
+             $outcome = $this->foodRepository->addFood($name, $photo);
         }
         catch (Exception $e) {
             return $e->getMessage();
@@ -42,7 +43,7 @@ class FoodService
     public function editFoodName ($old_name, $new_name) {
 
         try {
-            $outcome = $this->food->editFoodName($old_name, $new_name);
+            $outcome = $this->foodRepository->editFoodName($old_name, $new_name);
         }
         catch (Exception $e) {
             return $e->getMessage();
@@ -55,7 +56,7 @@ class FoodService
     public function getFood ($params) {
 
         try {
-            $outcome = $this->food->getFood($params);
+            $outcome = $this->foodRepository->getFoodWithNameOrPhoto($params);
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -67,7 +68,7 @@ class FoodService
     public function deleteFood ($id) {
 
         try {
-            $outcome = $this->food->deleteFood($id);
+            $outcome = $this->foodRepository->deleteFood($id);
         }
         catch (\Exception $e) {
             return $e->getMessage();
