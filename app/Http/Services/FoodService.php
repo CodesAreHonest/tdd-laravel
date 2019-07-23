@@ -20,6 +20,8 @@ class FoodService
     }
 
     /**
+     * Add Name and Photo
+     *
      * @param   string      $name
      * @param   string      $photo
      * @return  boolean     $outcome
@@ -42,7 +44,7 @@ class FoodService
         try {
             $outcome = $this->food->editFoodName($old_name, $new_name);
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             return $e->getMessage();
         }
 
